@@ -5,12 +5,25 @@ using UnityEngine;
 
 public class Clock : MonoBehaviour
 {
-    private float elapsedTime;
+    public static Clock instance;
+    public float elapsedTime {get; private set; }
     [SerializeField] private TMP_Text clockText;
     [SerializeField] private TMP_Text dateText;
     private float Timescale = 1000f;
     private float timeinaDay = 86400f; // 24 hours in seconds
-
+    
+     void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
         MorningTime();
@@ -50,4 +63,24 @@ public class Clock : MonoBehaviour
         int morning2 = 8 * 3600; // 8 AM in seconds 
         elapsedTime = Random.Range(morning1, morning2);
     }
+
+    public void JumpToMorning()
+{
+    // Get current day (before jump)
+    int currentDay = Mathf.FloorToInt(elapsedTime / timeinaDay);
+
+    // Choose random time between 6 AM and 8 AM
+    int morningStart = 6 * 3600; // 6 AM
+    int morningEnd = 8 * 3600;   // 8 AM
+    int randomMorningSeconds = Random.Range(morningStart, morningEnd);
+
+    // Set time to: start of next day + morning time
+    // (so if it's 10 PM, you wake up next morning)
+    elapsedTime = (currentDay + 1) * timeinaDay + randomMorningSeconds;
+
+    // Update UI immediately
+    float timeOfDay = elapsedTime % timeinaDay;
+    ClockTextUI(timeOfDay);
+    DateTextUI();
+}
 }

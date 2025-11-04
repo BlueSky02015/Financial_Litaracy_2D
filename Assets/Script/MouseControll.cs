@@ -13,6 +13,8 @@ public class MouseControll : MonoBehaviour
     [SerializeField] private Texture2D CursorNormal;
     [SerializeField] private Texture2D CursorHover;
     [SerializeField] private AudioManager audioManager;
+    [SerializeField] private InteractableHandler interactableHandler;
+
 
     void Awake()
     {
@@ -28,7 +30,7 @@ public class MouseControll : MonoBehaviour
         MouseRay = Camera.main.ScreenPointToRay(mousePos);
         clickedObject();
         HoverObject();
-        
+
     }
 
     void clickedObject()
@@ -41,7 +43,17 @@ public class MouseControll : MonoBehaviour
             if (objectHit != null)
             {
                 audioManager.playSFX(audioManager.Click_SFX, 1.5f);
-                Debug.Log("Hit " + objectHit.name);
+
+                IInteractable interactable = objectHit.GetComponent<IInteractable>();
+                if (interactable != null)
+                {
+                    interactable.OnClicked();
+                }
+
+                if (interactableHandler != null)
+                {
+                    interactableHandler.OnObjectClicked(objectHit);
+                }
             }
         }
     }
@@ -57,16 +69,14 @@ public class MouseControll : MonoBehaviour
             if (previousHoverObject != null)
             {
                 ChangeCursor(CursorNormal);
-                Debug.Log("Exit " + previousHoverObject.name);
             }
             if (nextHoverObject != null)
-            {   
+            {
                 ChangeCursor(CursorHover);
-                Debug.Log("Enter " + nextHoverObject.name);
             }
         }
     }
-    
+
     void ChangeCursor(Texture2D cursorType)
     {
         Cursor.SetCursor(cursorType, Vector2.zero, CursorMode.Auto);
