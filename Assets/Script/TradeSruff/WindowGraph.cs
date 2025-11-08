@@ -65,7 +65,7 @@ public class WindowGraph : MonoBehaviour
             labelY.SetParent(graphContainer);
             labelY.gameObject.SetActive(true);
             float normalizedValue = i * 1f / separatorCount;
-            labelY.anchoredPosition = new Vector2(-110, normalizedValue * graphHeight);
+            labelY.anchoredPosition = new Vector2(-75, normalizedValue * graphHeight);
             labelY.GetComponent<TextMeshProUGUI>().text = getAxislabelY(yMinimum + (normalizedValue * (yMaximum - yMinimum)));
             labelYTransforms.Add(labelY);
         }

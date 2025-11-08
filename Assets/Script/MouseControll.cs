@@ -19,7 +19,7 @@ public class MouseControll : MonoBehaviour
     void Awake()
     {
         ChangeCursor(CursorNormal);
-        Cursor.lockState = CursorLockMode.Confined;
+        // Cursor.lockState = CursorLockMode.Confined;
     }
 
     void Update()

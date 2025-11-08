@@ -148,7 +148,7 @@ public class UIManager : MonoBehaviour
         }
 
         appCanvas.SetActive(true);
-        laptopDesktopCanvas?.SetActive(false);
+        // laptopDesktopCanvas?.SetActive(false);
 
         // ✅ Manually set state
         currentState = UIState.InLaptopApp;

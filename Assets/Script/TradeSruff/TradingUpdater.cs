@@ -7,11 +7,13 @@ public class TradingUpdater : MonoBehaviour
     [SerializeField] private TradingManager tradingManager;
 
     [Header("Settings")]
-     [SerializeField] private float updateIntervalMinutes = 30f;
+    [SerializeField] private float updateIntervalMinutes = 30f;
     [SerializeField] private int maxUpdatesPerFrame = 20;
 
     private float lastUpdateTime = -1f;
     private float IntervalSeconds => updateIntervalMinutes * 60f;
+    [SerializeField] private StockData[] allStocks;
+
 
     void Start()
     {
@@ -49,5 +51,16 @@ public class TradingUpdater : MonoBehaviour
             tradingManager.UpdatePrice();
             lastUpdateTime += IntervalSeconds;
         }
+
+        for (int i = 0; i < updatesNeeded; i++)
+        {
+            foreach (var stock in allStocks)
+            {
+                stock.AddNewPrice();
+            }
+            lastUpdateTime += IntervalSeconds;
+        }
+
+       PortfolioManager.NotifyPortfolioUpdated();
     }
 }
