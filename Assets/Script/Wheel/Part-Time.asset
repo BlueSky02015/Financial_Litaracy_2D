@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272bc6d820cb2314182ef4058bf2f98c, type: 3}
+  m_Name: Part-Time
+  m_EditorClassIdentifier: 
+  actionName: Part-Time
+  outcomes:
+  - description: You worked at the cafe. Tips were good!
+    rarity: 0
+    HealthChange: 0
+    hungerChange: -20
+    staminaChange: -20
+    moodChange: -10
+    knowledgeChange: 0
+    timeCostHours: 5
+    moneyChange: 100
+  - description: You tutored a student. They paid fairly.
+    rarity: 0
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: 0
+    moodChange: 10
+    knowledgeChange: 5
+    timeCostHours: 3
+    moneyChange: 150
+  - description: You did online surveys. Boring but easy.
+    rarity: 0
+    HealthChange: 0
+    hungerChange: 0
+    staminaChange: 0
+    moodChange: -5
+    knowledgeChange: 10
+    timeCostHours: 1
+    moneyChange: 150
+  - description: You reshelved books in the quiet library. Peaceful but boring.
+    rarity: 0
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: -5
+    moodChange: -2
+    knowledgeChange: 10
+    timeCostHours: 2
+    moneyChange: 150
+  - description: You walked three dogs and fed a cat. They loved you!
+    rarity: 1
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: -5
+    moodChange: 8
+    knowledgeChange: 0
+    timeCostHours: 1
+    moneyChange: 200
+  - description: You helped a high schooler with math. They finally understood!
+    rarity: 1
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: -5
+    moodChange: 15
+    knowledgeChange: 10
+    timeCostHours: 3
+    moneyChange: 250
+  - description: You handed out flyers at a festival. Got free snacks!
+    rarity: 1
+    HealthChange: 0
+    hungerChange: 10
+    staminaChange: -5
+    moodChange: 5
+    knowledgeChange: 0
+    timeCostHours: 5
+    moneyChange: 250
+  - description: You returned a wallet with $50 cash. The owner rewarded you generously!
+    rarity: 1
+    HealthChange: 0
+    hungerChange: 0
+    staminaChange: -5
+    moodChange: 10
+    knowledgeChange: 0
+    timeCostHours: 1
+    moneyChange: 200
+  - description: You designed a logo for a startup. They loved it and paid extra!
+    rarity: 1
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: -5
+    moodChange: 20
+    knowledgeChange: 5
+    timeCostHours: 3
+    moneyChange: 200
+  - description: You played guitar in the park. A talent scout gave you $200 on the
+      spot!
+    rarity: 2
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: -5
+    moodChange: 10
+    knowledgeChange: 0
+    timeCostHours: 6
+    moneyChange: 200
+  - description: "Your boss said, \u2018You\u2019re amazing!\u2019 and gave you a
+      surprise bonus."
+    rarity: 2
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: -5
+    moodChange: 20
+    knowledgeChange: 0
+    timeCostHours: 5
+    moneyChange: 300

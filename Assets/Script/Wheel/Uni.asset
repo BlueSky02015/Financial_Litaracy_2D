@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272bc6d820cb2314182ef4058bf2f98c, type: 3}
+  m_Name: Uni
+  m_EditorClassIdentifier: 
+  actionName: Uni
+  outcomes:
+  - description: You reviewed notes in the quiet library. Productive but tiring
+    rarity: 0
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: -3
+    moodChange: -3
+    knowledgeChange: 10
+    timeCostHours: 2
+    moneyChange: 0
+  - description: Your team argued about deadlines, but you made progress
+    rarity: 0
+    HealthChange: 0
+    hungerChange: -10
+    staminaChange: -7
+    moodChange: -3
+    knowledgeChange: 5
+    timeCostHours: 4
+    moneyChange: 0
+  - description: You attended a Zoom class. Easy to zone out..
+    rarity: 0
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: -2
+    moodChange: -3
+    knowledgeChange: 10
+    timeCostHours: 3
+    moneyChange: 0
+  - description: You asked questions after class. The professor praised your curiosity!
+    rarity: 1
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: -5
+    moodChange: 7
+    knowledgeChange: 12
+    timeCostHours: 3
+    moneyChange: 0
+  - description: Your friends taught you a shortcut. You all aced the quiz!
+    rarity: 1
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: -5
+    moodChange: 12
+    knowledgeChange: 20
+    timeCostHours: 5
+    moneyChange: 0
+  - description: "An email arrived: You\u2019ve been awarded a $500 semester scholarship!"
+    rarity: 2
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: -5
+    moodChange: 15
+    knowledgeChange: 0
+    timeCostHours: 2
+    moneyChange: 500
+  - description: A professor offers you a paid research role next semester!
+    rarity: 2
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: -5
+    moodChange: 15
+    knowledgeChange: 10
+    timeCostHours: 3
+    moneyChange: 200
+  - description: A professor offers you a paid research role next semester!
+    rarity: 2
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: -5
+    moodChange: 15
+    knowledgeChange: 10
+    timeCostHours: 3
+    moneyChange: 200
+  - description: 'You went on like normal and suddenly... you got hit by a car.
+
+      got
+      a small wound but your alright'
+    rarity: 2
+    HealthChange: -30
+    hungerChange: -5
+    staminaChange: -5
+    moodChange: -15
+    knowledgeChange: 0
+    timeCostHours: 3
+    moneyChange: -200
+  - description: Your undergrad research got accepted in a real journal!
+    rarity: 3
+    HealthChange: 0
+    hungerChange: -5
+    staminaChange: -5
+    moodChange: 25
+    knowledgeChange: 20
+    timeCostHours: 5
+    moneyChange: 1000

@@ -42,6 +42,7 @@ public class MouseControll : MonoBehaviour
 
             if (objectHit != null)
             {
+                TutorialTrigger();
                 audioManager.playSFX(audioManager.Click_SFX, 1.5f);
 
                 IInteractable interactable = objectHit.GetComponent<IInteractable>();
@@ -80,5 +81,34 @@ public class MouseControll : MonoBehaviour
     void ChangeCursor(Texture2D cursorType)
     {
         Cursor.SetCursor(cursorType, Vector2.zero, CursorMode.Auto);
+    }
+
+    void TutorialTrigger()
+    {
+        // 🔍 DEBUG: Check if TutorialManager exists
+        if (TutorialManager.instance == null)
+        {
+            Debug.LogError("TutorialManager is NULL!");
+        }
+        else if (TutorialManager.instance.IsTutorialActive())
+        {
+            Debug.Log("Tutorial is ACTIVE");
+            Debug.Log($"Current tutorial step: {TutorialManager.instance.currentStep}");
+
+            if (objectHit.CompareTag("Laptop"))
+            {
+                Debug.Log("Laptop clicked → calling OnLaptopClicked()");
+                TutorialManager.instance.OnLaptopClicked();
+            }
+            else if (objectHit.CompareTag("Door"))
+            {
+                Debug.Log("Door clicked → calling OnDoorClicked()");
+                TutorialManager.instance.OnDoorClicked();
+            }
+        }
+        else
+        {
+            Debug.Log("Tutorial is NOT active");
+        }
     }
 }

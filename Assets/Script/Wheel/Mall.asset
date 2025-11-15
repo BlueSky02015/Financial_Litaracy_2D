@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272bc6d820cb2314182ef4058bf2f98c, type: 3}
+  m_Name: Mall
+  m_EditorClassIdentifier: 
+  actionName: Mall
+  outcomes:
+  - description: You Have fun at the Mall
+    rarity: 0
+    HealthChange: 0
+    hungerChange: 20
+    staminaChange: -10
+    moodChange: 10
+    knowledgeChange: 0
+    timeCostHours: 5
+    moneyChange: -200
+  - description: You finally went to that one place that you want
+    rarity: 1
+    HealthChange: 0
+    hungerChange: 25
+    staminaChange: -5
+    moodChange: -20
+    knowledgeChange: 0
+    timeCostHours: 5
+    moneyChange: -350
+  - description: You went to that one Arcde and won a prize
+    rarity: 2
+    HealthChange: 0
+    hungerChange: -20
+    staminaChange: -20
+    moodChange: 70
+    knowledgeChange: 0
+    timeCostHours: 5
+    moneyChange: 10000
+  - description: 'You went to that one Arcde and loss '
+    rarity: 2
+    HealthChange: 0
+    hungerChange: -20
+    staminaChange: -20
+    moodChange: -20
+    knowledgeChange: 0
+    timeCostHours: 5
+    moneyChange: -1000
+  - description: 'You Won the 1Mil Lottery '
+    rarity: 3
+    HealthChange: 0
+    hungerChange: 20
+    staminaChange: 20
+    moodChange: 100
+    knowledgeChange: 0
+    timeCostHours: 1
+    moneyChange: 1000000

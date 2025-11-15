@@ -1,44 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class DialogManager : MonoBehaviour
 {
     public static DialogManager Instance;
 
+    [Header("UI References")]
     public Image characterIcon;
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueArea;
+    public Animator animator;
+
+    [Header("Settings")]
+    public float defaultAutoAdvanceDelay = 2f;
+    public float typingSpeed = 0.1f;
 
     private Queue<DialogueLine> lines;
-
-    public bool isDialogueActive = false;
+    private DialogueSO currentDialogue;
+    private bool isDialogueActive = false;
     private bool isTyping = false;
     private Coroutine autoAdvanceCoroutine;
 
-
-    float typingSpeed = 0.1f;
-    public Animator animator;
-
-
-
-    private void Awake()
+    void Awake()
     {
         if (Instance == null)
             Instance = this;
+        else
+            Destroy(gameObject);
 
         lines = new Queue<DialogueLine>();
-        isDialogueActive = false;
-    }
-
-    void Start()
-    {
-        if (animator == null)
-        {
-            Debug.LogError("Animator not assigned in DialogManager!");
-        }
     }
 
     void Update()
@@ -49,16 +42,17 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(DialogueSO dialogue)
     {
+        // ✅ No need to check — TutorialManager decides when to call this
+        currentDialogue = dialogue;
         isDialogueActive = true;
         animator.SetBool("IsDialog", true);
         lines.Clear();
 
-        foreach (DialogueLine dialogueLine in dialogue.dialogueLines)
+        foreach (var line in dialogue.dialogueLines)
         {
-            lines.Enqueue(dialogueLine);
+            lines.Enqueue(line);
         }
 
         DisplayNextDialogueLine();
@@ -66,16 +60,13 @@ public class DialogManager : MonoBehaviour
 
     public void DisplayNextDialogueLine()
     {
-        // Debug.Log("Lines remaining: " + lines.Count);
         if (lines.Count == 0)
         {
-            Debug.Log("No more lines. Ending dialogue.");
             EndDialogue();
             return;
         }
 
-        DialogueLine currentLine = lines.Dequeue();
-
+        var currentLine = lines.Dequeue();
         characterIcon.sprite = currentLine.character.icon;
         characterName.text = currentLine.character.name;
 
@@ -83,32 +74,37 @@ public class DialogManager : MonoBehaviour
         StartCoroutine(TypeSentence(currentLine));
     }
 
-    IEnumerator TypeSentence(DialogueLine dialogueLine)
+    IEnumerator TypeSentence(DialogueLine line)
     {
         isTyping = true;
         dialogueArea.text = "";
-        foreach (char letter in dialogueLine.line.ToCharArray())
+        foreach (char letter in line.line.ToCharArray())
         {
             dialogueArea.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
         isTyping = false;
-        // Start the auto-advance coroutine
-        autoAdvanceCoroutine = StartCoroutine(AutoAdvanceDialogue());
+
+        float delay = line.autoAdvanceDelay > 0 ? line.autoAdvanceDelay : defaultAutoAdvanceDelay;
+        autoAdvanceCoroutine = StartCoroutine(AutoAdvance(delay));
     }
 
-    IEnumerator AutoAdvanceDialogue()
+    IEnumerator AutoAdvance(float delay)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(delay);
         DisplayNextDialogueLine();
     }
-
 
     void EndDialogue()
     {
         isDialogueActive = false;
         animator.SetBool("IsDialog", false);
+
+        if (currentDialogue != null && currentDialogue.isIntroDialogue)
+        {
+            TutorialManager.instance?.AdvanceToChoosePath();
+        }
+        
+        currentDialogue = null;
     }
-
-
 }

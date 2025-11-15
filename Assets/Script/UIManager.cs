@@ -191,7 +191,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    private void ResumeGame()
+    public void ResumeGame()
     {
         GamePauseScreen.SetActive(false);
         currentState = UIState.Playing;

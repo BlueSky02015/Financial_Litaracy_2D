@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272bc6d820cb2314182ef4058bf2f98c, type: 3}
+  m_Name: Eat-Out
+  m_EditorClassIdentifier: 
+  actionName: Eat-Out
+  outcomes:
+  - description: You Eat at McMek as usuall
+    rarity: 0
+    HealthChange: 0
+    hungerChange: 25
+    staminaChange: 2
+    moodChange: 3
+    knowledgeChange: 0
+    timeCostHours: 1
+    moneyChange: 20
+    knowledgeReq: 0
+  - description: 'You went to your local Chinese Resto '
+    rarity: 0
+    HealthChange: 3
+    hungerChange: 30
+    staminaChange: 2
+    moodChange: 5
+    knowledgeChange: 0
+    timeCostHours: 2
+    moneyChange: 77
+    knowledgeReq: 0
+  - description: You Crave some Pizza and buy a Large one
+    rarity: 1
+    HealthChange: -2
+    hungerChange: 30
+    staminaChange: 5
+    moodChange: 20
+    knowledgeChange: 0
+    timeCostHours: 2
+    moneyChange: 120
+    knowledgeReq: 0
+  - description: 'ALL U CAN EAT BUFFET, BABY '
+    rarity: 2
+    HealthChange: 10
+    hungerChange: 50
+    staminaChange: 2
+    moodChange: 25
+    knowledgeChange: 0
+    timeCostHours: 2
+    moneyChange: 150
+    knowledgeReq: 0
+  - description: You meet an old friend on the way, and he insited to pay for the
+      meal
+    rarity: 3
+    HealthChange: 0
+    hungerChange: 75
+    staminaChange: 10
+    moodChange: 50
+    knowledgeChange: 0
+    timeCostHours: 3
+    moneyChange: 0
+    knowledgeReq: 0

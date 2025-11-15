@@ -1,10 +1,4 @@
-// StatTimeUpdater.cs
 using UnityEngine;
-
-/// <summary>
-/// Updates PlayerStats based on in-game time progression.
-/// Handles decay (hunger) and recovery (stamina) over time.
-/// </summary>
 public class StatTimeUpdater : MonoBehaviour
 {
     [Header("References")]

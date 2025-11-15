@@ -1,0 +1,13 @@
+{
+    "stats": {
+        "health": 88.0,
+        "hunger": 44.99449920654297,
+        "stamina": 64.49725341796875,
+        "mood": 72.49725341796875,
+        "money": 1000.0,
+        "knowledge": 65.0
+    },
+    "elapsedTime": 113021.0,
+    "stockHoldings": [],
+    "currentTutorialStep": "UseDoor"
+}

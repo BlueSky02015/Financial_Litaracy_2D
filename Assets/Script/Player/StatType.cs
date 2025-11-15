@@ -1,8 +1,9 @@
 public enum StatType
-    {
-        Health,
-        Hunger,
-        Stamina,
-        Mood,
-        Money
-    }
+{
+    Health,
+    Hunger,
+    Stamina,
+    Mood,
+    Knowledge,
+    Money
+}

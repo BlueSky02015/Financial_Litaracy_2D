@@ -1,18 +1,17 @@
-// WheelSelection.cs (updated)
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WheelSelection : MonoBehaviour
 {
     [Header("Buttons & Actions")]
-    public Button[] buttons; 
-    public WheelAction[] wheelActions; 
+    public Button[] buttons;
+    public WheelAction[] wheelActions;
 
     [Header("Layout")]
     public float radius = 200f;
     public Vector2 centerOffset = Vector2.zero;
+    [SerializeField] private WheelFeedback wheelFeedback;
+
 
     void Start()
     {
@@ -74,21 +73,59 @@ public class WheelSelection : MonoBehaviour
             return;
 
         WheelAction action = wheelActions[index];
-        Debug.Log($"Executing: {action.actionName}");
 
-        // Apply stat changes
-        PlayerStats.instance.ModifyStat(StatType.Money, action.moneyChange);
-        PlayerStats.instance.ModifyStat(StatType.Hunger, action.hungerChange);
-        PlayerStats.instance.ModifyStat(StatType.Stamina, action.staminaChange);
-        PlayerStats.instance.ModifyStat(StatType.Mood, action.moodChange);
+        // 🔒 CHECK REQUIREMENTS (in separate file!)
+        if (!ActionRequirementsChecker.CanUseAction(action, showMessages: true))
+        {
+            return; // ⛔ Blocked!
+        }
 
-        // Optional: show feedback (e.g., pop-up text)
-        ShowFeedback(action);
+        WheelOutcome outcome = action.GetRandomWeightedOutcome();
+
+        // ⏳ ADVANCE IN-GAME TIME
+        if (Clock.instance != null)
+        {
+            Clock.instance.AddTimeHours(outcome.timeCostHours);
+        }
+
+        // Apply stats
+        PlayerStats.instance.ModifyStat(StatType.Money, outcome.moneyChange);
+        PlayerStats.instance.ModifyStat(StatType.Hunger, outcome.hungerChange);
+        PlayerStats.instance.ModifyStat(StatType.Stamina, outcome.staminaChange);
+        PlayerStats.instance.ModifyStat(StatType.Mood, outcome.moodChange);
+
+        // Determine color based on rarity
+        Color rarityColor = outcome.rarity switch
+        {
+            RarityTier.Common => Color.white,
+            RarityTier.Uncommon => new Color(0.3f, 0.7f, 1f),    // blue
+            RarityTier.Rare => new Color(0.7f, 0.3f, 1f),        // purple
+            RarityTier.Legendary => new Color(1f, 0.84f, 0f),    // gold
+            _ => Color.white
+        };
+
+        if (wheelFeedback != null)
+        {
+            wheelFeedback.ShowFeedback(
+                outcome.description,
+                outcome.HealthChange,
+                outcome.hungerChange,
+                outcome.staminaChange,
+                outcome.moodChange,
+                outcome.knowledgeChange,
+                outcome.moneyChange,
+                rarityColor
+            );
+        }
     }
 
-    void ShowFeedback(WheelAction action)
+    public void SetInteractable(bool interactable)
     {
-        // You can add a TMP_Text or particle effect here later
-        Debug.Log($"{action.actionName}: Money {action.moneyChange:+0;-0}, Hunger {action.hungerChange:+0;-0}, Stamina {action.staminaChange:+0;-0}, Mood {action.moodChange:+0;-0}");
+        foreach (var btn in buttons)
+        {
+            if (btn != null)
+                btn.interactable = interactable;
+        }
     }
+
 }
