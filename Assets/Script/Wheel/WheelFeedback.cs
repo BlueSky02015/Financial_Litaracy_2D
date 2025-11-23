@@ -18,7 +18,7 @@ public class WheelFeedback : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioManager audioManager;
 
-    public void ShowFeedback(string description, int money, int hunger, int stamina, int mood, int health, int knowledge, Color textColor)
+    public void ShowFeedback(string description, int health, int hunger, int stamina, int mood, int knowledge, int money,  Color textColor)
     {
         if (fadeTrigger == null || descriptionText == null || statsText == null)
         {
@@ -34,7 +34,7 @@ public class WheelFeedback : MonoBehaviour
         descriptionText.color = textColor;
         statsText.color = textColor;
         descriptionText.text = description;
-        statsText.text = FormatStats(money, hunger, stamina, mood, health, knowledge);
+        statsText.text = FormatStats(health, hunger, stamina, mood, knowledge, money);
 
         // Start fade + display sequence
         StartCoroutine(ShowFeedbackSequence());
@@ -68,15 +68,15 @@ public class WheelFeedback : MonoBehaviour
             wheelSelection.SetInteractable(true);
     }
 
-    private string FormatStats(int money, int hunger, int stamina, int mood, int health, int knowledge)
+    private string FormatStats(int health, int hunger, int stamina, int mood,  int knowledge, int money)
     {
         string s = "";
-        if (money != 0) s += $"Money {money:+0;-0} \n";
+        if (health != 0) s += $"Health {health:+0;-0} \n";
         if (hunger != 0) s += $"Hunger {hunger:+0;-0} \n";
         if (stamina != 0) s += $"Stamina {stamina:+0;-0} \n";
         if (mood != 0) s += $"Mood {mood:+0;-0} \n";
-        if (health != 0) s += $"Health {health:+0;-0} \n";
         if (knowledge != 0) s += $"Knowledge {knowledge:+0;-0} \n";
+        if (money != 0) s += $"Money {money:+0;-0} \n";
         return s.Trim();
     }
 }

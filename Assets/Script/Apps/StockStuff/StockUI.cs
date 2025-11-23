@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InvestmentUI : MonoBehaviour
+public class StockUI : MonoBehaviour
 {
     [Header("Stock Reference")]
     [SerializeField] private StockData stock;

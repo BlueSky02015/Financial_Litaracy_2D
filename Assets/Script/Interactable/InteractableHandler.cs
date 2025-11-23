@@ -56,8 +56,8 @@ public class InteractableHandler : MonoBehaviour
         // Open new canvas
         if (matchedMapping.canvas != null)
         {
-            matchedMapping.canvas.SetActive(true);
-            currentlyActiveObject = clickedObject;
+            SetCanvasVisible(matchedMapping.canvas, true);
+            currentlyActiveObject = clickedObject;  
             currentlyActiveCanvas = matchedMapping.canvas;
 
             if (audioManager != null)
@@ -68,23 +68,46 @@ public class InteractableHandler : MonoBehaviour
         // Special handling for Laptop
         if (clickedObject.CompareTag("Laptop"))
         {
-            // Open canvas normally
+            TutorialManager.instance?.OnAppClicked("Laptop");
             matchedMapping.canvas.SetActive(true);
 
             // Notify UIManager
             if (UIManager.instance != null)
                 UIManager.instance.OnLaptopDesktopOpened();
         }
+
+        if (clickedObject.CompareTag("Door"))
+        {
+            TutorialManager.instance?.OnAppClicked("Door");
+        }
     }
 
-    // Optional: Public method to close from outside (e.g., ESC key)
     public void CloseCurrentCanvas()
     {
         if (currentlyActiveCanvas != null)
         {
-            currentlyActiveCanvas.SetActive(false);
+           SetCanvasVisible(currentlyActiveCanvas, false);
         }
         currentlyActiveObject = null;
         currentlyActiveCanvas = null;
+    }
+
+
+    void SetCanvasVisible(GameObject canvas, bool visible)
+    {
+        if (canvas == null) return;
+
+        CanvasGroup cg = canvas.GetComponent<CanvasGroup>();
+        if (cg != null)
+        {
+            cg.alpha = visible ? 1f : 0f;
+            cg.interactable = visible;
+            cg.blocksRaycasts = visible;
+        }
+        else
+        {
+            // Fallback to SetActive if no CanvasGroup
+            canvas.SetActive(visible);
+        }
     }
 }

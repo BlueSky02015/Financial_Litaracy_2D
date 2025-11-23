@@ -16,6 +16,6 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 395c673ca3d72e9489102512c67cc58e, type: 3}
   description: A place to live or rent out.
   purchasePrice: 1000
-  sellPrice: 1200
+  sellPrice: 800
   weeklyRentalIncome: 50
   rentedColor: {r: 0.2, g: 0.8, b: 0.4, a: 1}

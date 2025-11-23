@@ -1,14 +1,11 @@
 using System.IO;
+using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GameSaveManager : MonoBehaviour
 {
     public static GameSaveManager instance;
-
-    // private const string SAVE_FILE_NAME = "game_save.json";
-    // private string SaveFilePath => Path.Combine(Application.persistentDataPath, SAVE_FILE_NAME);
-
-    // GameSaveManager.cs
     private string SaveFolderPath => Path.Combine(Application.dataPath, "GameSaveFolder");
     private string SaveFilePath => Path.Combine(SaveFolderPath, "game_save.json");
 
@@ -39,25 +36,31 @@ public class GameSaveManager : MonoBehaviour
         stats.money = PlayerStats.instance.GetStat(StatType.Money);
         stats.knowledge = PlayerStats.instance.GetStat(StatType.Knowledge);
 
-        // Save tutorial progress
-        saveData.currentTutorialStep = TutorialManager.instance?.currentStep.ToString() ?? "None";
 
         // Save time
         saveData.elapsedTime = Clock.instance.elapsedTime;
+        saveData.currentDay = Clock.instance.GetCurrentDay();
 
         // Save portfolio
-        saveData.stockHoldings.Clear();
         if (PortfolioManager.instance != null)
         {
             foreach (var holding in PortfolioManager.instance.holdings)
             {
                 saveData.stockHoldings.Add(new StockHoldingSaveData
                 {
-                    stockSymbol = holding.stock.stockSymbol,
+                    stockName = holding.stock.stockName,
                     sharesOwned = holding.sharesOwned,
                     totalInvested = holding.totalInvested
                 });
             }
+        }
+
+        // Save tutorial
+        if (TutorialManager.instance != null)
+        {
+            saveData.completedAppTutorials = new List<string>(
+                TutorialManager.instance.GetCompletedTutorials()
+            );
         }
 
         // Ensure save folder exists
@@ -95,16 +98,9 @@ public class GameSaveManager : MonoBehaviour
         PlayerStats.instance.SetStat(StatType.Knowledge, stats.knowledge);
 
         // Load time
-        Clock.instance.SetElapsedTime(saveData.elapsedTime); Clock.instance.InitializeClockUI(); // refresh UI
+        Clock.instance.SetElapsedTime(saveData.elapsedTime);
+        Clock.instance.SetCurrentDay(saveData.currentDay);
 
-        // Load tutorial progress
-        if (!string.IsNullOrEmpty(saveData.currentTutorialStep))
-        {
-            if (System.Enum.TryParse<TutorialStep>(saveData.currentTutorialStep, out TutorialStep loadedStep))
-            {
-                TutorialManager.instance.currentStep = loadedStep;
-            }
-        }
 
         // Load portfolio
         if (PortfolioManager.instance != null)
@@ -112,7 +108,7 @@ public class GameSaveManager : MonoBehaviour
             PortfolioManager.instance.ClearHoldings();
             foreach (var holdingData in saveData.stockHoldings)
             {
-                StockData stock = FindStockBySymbol(holdingData.stockSymbol);
+                StockData stock = FindStockBySymbol(holdingData.stockName);
                 if (stock != null)
                 {
                     PortfolioManager.instance.AddHolding(
@@ -123,6 +119,14 @@ public class GameSaveManager : MonoBehaviour
                 }
             }
             PortfolioManager.NotifyPortfolioUpdated();
+        }
+
+        // Load tutorial progress
+        if (TutorialManager.instance != null)
+        {
+            TutorialManager.instance.SetCompletedTutorials(
+                new HashSet<string>(saveData.completedAppTutorials)
+            );
         }
 
         Debug.Log("Game loaded!");

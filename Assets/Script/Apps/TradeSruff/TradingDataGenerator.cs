@@ -4,37 +4,37 @@ using UnityEngine;
 
 public static class TradingDataGenerator
 {
-    /// <summary>
-    /// Generates a realistic-looking price series
-    /// </summary>
-    /// <param name="pointCount">Number of data points (e.g., 30 for 30 days)</param>
-    /// <param name="basePrice">Starting price (e.g., 100)</param>
-    /// <param name="volatility">How much prices jump (0.01 = 1% daily moves)</param>
-    /// <param name="trend">Overall direction (-0.5 to 0.5)</param>
-    /// <returns>List of prices</returns>
-    public static List<int> GeneratePriceData(int pointCount, float basePrice = 100f, float volatility = 0.02f, float trend = 0f)
+    private static System.Random rng = new System.Random();
+    public static List<int> GeneratePriceData(
+        int pointCount, 
+        float basePrice = 100f,
+        float volatility = 0.02f,      // σ: 2% daily move
+        float jumpProbability = 0.05f, // λ: 5% chance of jump
+        float minJumpSize = 0.1f,      // ξ_min: 10%
+        float maxJumpSize = 0.4f       // ξ_max: 40%
+    )
     {
         List<int> prices = new List<int>();
         float currentPrice = basePrice;
 
-        System.Random random = new System.Random();
-
         for (int i = 0; i < pointCount; i++)
         {
-            // Add small trend (drift)
-            float drift = trend * volatility;
+            // 1. BASE GBM MOVE: σ × Z_t (Z_t ~ N(0,1))
+            float z = SampleNormal(0f, 1f); // Standard normal
+            float priceChange = currentPrice * volatility * z;
 
-            // Generate random move (-1 to +1)
-            float randomMove = (float)(random.NextDouble() * 2 - 1);
+            // 2. JUMP COMPONENT (with probability λ)
+            if (rng.NextDouble() < jumpProbability)
+            {
+                float jumpSize = Random.Range(minJumpSize, maxJumpSize);
+                if (rng.NextDouble() < 0.5f) jumpSize *= -1f; // Random sign
+                priceChange = currentPrice * jumpSize; // Replace GBM move with jump
+            }
 
-            // Calculate price change
-            float priceChange = currentPrice * (drift + volatility * randomMove);
+            // 3. UPDATE PRICE
+            currentPrice += priceChange;
 
-            // Apply mean reversion (pull toward basePrice over time)
-            float meanReversion = (basePrice - currentPrice) * 0.01f;
-            currentPrice += priceChange + meanReversion;
-
-            // Ensure price stays positive
+            // 4. SAFETY: No negative/zero prices
             currentPrice = Mathf.Max(currentPrice, 1f);
 
             prices.Add(Mathf.RoundToInt(currentPrice));
@@ -43,37 +43,12 @@ public static class TradingDataGenerator
         return prices;
     }
 
-    /// <summary>
-    /// Generate data with occasional big events (news, crashes, pumps)
-    /// </summary>
-    public static List<int> GeneratePriceDataWithEvents(int pointCount, float basePrice = 100f)
+    // Efficient Normal Distribution Sampling (Box-Muller)
+    private static float SampleNormal(float mean, float stdDev)
     {
-        List<int> prices = new List<int>();
-        float currentPrice = basePrice;
-        System.Random random = new System.Random();
-
-        for (int i = 0; i < pointCount; i++)
-        {
-            // Normal daily move
-            float volatility = 0.015f;
-            float randomMove = (float)(random.NextDouble() * 2 - 1);
-            float priceChange = currentPrice * volatility * randomMove;
-
-            // 5% chance of big event
-            if (random.NextDouble() < 0.05)
-            {
-                float eventMagnitude = (float)(random.NextDouble() * 0.3f + 0.1f); // 10-40% move
-                if (random.NextDouble() < 0.5)
-                    eventMagnitude *= -1; // 50% chance crash
-
-                priceChange = currentPrice * eventMagnitude;
-            }
-
-            currentPrice += priceChange;
-            currentPrice = Mathf.Max(currentPrice, 1f);
-            prices.Add(Mathf.RoundToInt(currentPrice));
-        }
-
-        return prices;
+        float u1 = 1.0f - (float)rng.NextDouble(); // Uniform(0,1] 
+        float u2 = 1.0f - (float)rng.NextDouble();
+        float randStdNormal = Mathf.Sqrt(-2.0f * Mathf.Log(u1)) * Mathf.Sin(2.0f * Mathf.PI * u2);
+        return mean + stdDev * randStdNormal;
     }
 }

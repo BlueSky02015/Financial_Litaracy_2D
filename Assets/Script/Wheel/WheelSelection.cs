@@ -89,10 +89,12 @@ public class WheelSelection : MonoBehaviour
         }
 
         // Apply stats
-        PlayerStats.instance.ModifyStat(StatType.Money, outcome.moneyChange);
+        PlayerStats.instance.ModifyStat(StatType.Health, outcome.HealthChange);
         PlayerStats.instance.ModifyStat(StatType.Hunger, outcome.hungerChange);
         PlayerStats.instance.ModifyStat(StatType.Stamina, outcome.staminaChange);
         PlayerStats.instance.ModifyStat(StatType.Mood, outcome.moodChange);
+        PlayerStats.instance.ModifyStat(StatType.Knowledge, outcome.knowledgeChange);
+        PlayerStats.instance.ModifyStat(StatType.Money, outcome.moneyChange);
 
         // Determine color based on rarity
         Color rarityColor = outcome.rarity switch

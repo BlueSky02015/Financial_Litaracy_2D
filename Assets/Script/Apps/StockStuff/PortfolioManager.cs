@@ -52,7 +52,7 @@ public class PortfolioManager : MonoBehaviour
         holding.sharesOwned += shares;
         holding.totalInvested += totalCost;
 
-        Debug.Log($"Bought {shares} shares of {stock.stockSymbol} at ${pricePerShare}");
+        Debug.Log($"Bought {shares} shares of {stock.stockName} at ${pricePerShare}");
         OnPortfolioUpdated?.Invoke();
         return true;
     }
@@ -76,7 +76,7 @@ public class PortfolioManager : MonoBehaviour
             holdings.Remove(holding);
         }
 
-        Debug.Log($"Sold {shares} shares of {stock.stockSymbol} at ${price}");
+        Debug.Log($"Sold {shares} shares of {stock.stockName} at ${price}");
         OnPortfolioUpdated?.Invoke();
         return true;
     }

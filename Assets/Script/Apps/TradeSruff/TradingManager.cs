@@ -6,8 +6,14 @@ public class TradingManager : MonoBehaviour
     [Header("Graph")]
     [SerializeField] private WindowGraph graph;
     [SerializeField] private int dataPoints = 30;
-    [SerializeField] private float basePrice = 100f;
-    [SerializeField] private float volatility = 0.02f;
+
+
+    [Header("Settings")]
+    public float basePrice = 100f;
+    public float volatility = 0.02f;
+    public float jumpProbability = 0.05f;
+    public float minJumpSize = 0.1f;
+    public float maxJumpSize = 0.4f;
 
     private List<int> currentPriceData;
 
@@ -18,7 +24,8 @@ public class TradingManager : MonoBehaviour
 
     public void GenerateNewData()
     {
-        currentPriceData = TradingDataGenerator.GeneratePriceDataWithEvents(dataPoints, basePrice);
+        currentPriceData = TradingDataGenerator.GeneratePriceData(
+            dataPoints, basePrice, volatility, jumpProbability, minJumpSize, maxJumpSize);
         if (graph != null)
             graph.UpdateGraphData(currentPriceData);
     }

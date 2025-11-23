@@ -1,31 +1,26 @@
-using System.Collections.Generic;
+// StockData.cs (updated)
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "New Stock", menuName = "Trading/Stock Data")]
 public class StockData : ScriptableObject
 {
-    [Header("Basic Info")]
-    public string stockSymbol = "STOCK";
-    [TextArea] public string stockName = "Stock Company";
-
-    [Header("Price Settings")]
+    [Header("Base Settings")]
+    public string stockName = "STOCK";
     public float basePrice = 100f;
-    public float volatility = 0.02f; // 2% daily move
-    public float trend = 0f; // -0.3 to 0.3
+    public float volatility = 0.02f;        // σ
+    public float jumpProbability = 0.05f;   // λ
+    public float minJumpSize = 0.1f;        // ξ_min
+    public float maxJumpSize = 0.4f;        // ξ_max
 
-    [Header("Runtime")]
     [HideInInspector] public List<int> priceHistory = new List<int>();
-    [HideInInspector] public int currentPrice => 
-        priceHistory.Count > 0 ? priceHistory[priceHistory.Count - 1] : Mathf.RoundToInt(basePrice);
 
-    // Generate initial price data
     public void InitializePriceHistory(int pointCount)
     {
-        priceHistory = TradingDataGenerator.GeneratePriceDataWithEvents(
-            pointCount, basePrice);
+        priceHistory = TradingDataGenerator.GeneratePriceData(
+            pointCount, basePrice, volatility, jumpProbability, minJumpSize, maxJumpSize);
     }
 
-    // Update with new price
     public void AddNewPrice()
     {
         if (priceHistory.Count == 0)
@@ -35,24 +30,36 @@ public class StockData : ScriptableObject
         }
 
         float lastPrice = priceHistory[priceHistory.Count - 1];
-        System.Random random = new System.Random();
-        float randomMove = (float)(random.NextDouble() * 2 - 1);
-        float priceChange = lastPrice * volatility * randomMove;
+        
+        // 1. GBM MOVE
+        float z = SampleNormal(0f, 1f);
+        float priceChange = lastPrice * volatility * z;
 
-        // 3% chance of big event
-        if (random.NextDouble() < 0.03)
+        // 2. JUMP (5% chance)
+        if (Random.value < jumpProbability)
         {
-            float eventMove = (float)(random.NextDouble() * 0.25f + 0.05f);
-            if (random.NextDouble() < 0.5) eventMove *= -1;
-            priceChange = lastPrice * eventMove;
+            float jumpSize = Random.Range(minJumpSize, maxJumpSize);
+            if (Random.value < 0.5f) jumpSize *= -1f;
+            priceChange = lastPrice * jumpSize;
         }
 
+        // 3. UPDATE
         float newPrice = lastPrice + priceChange;
         newPrice = Mathf.Max(newPrice, 1f);
-        priceHistory.Add(Mathf.RoundToInt(newPrice));
 
-        // Keep history size reasonable
-        if (priceHistory.Count > 100)
-            priceHistory.RemoveAt(0);
+        priceHistory.Add(Mathf.RoundToInt(newPrice));
+        if (priceHistory.Count > 100) priceHistory.RemoveAt(0);
     }
+
+    // Reuse normal sampler
+    private static float SampleNormal(float mean, float stdDev)
+    {
+        float u1 = 1.0f - Random.value;
+        float u2 = 1.0f - Random.value;
+        float randStdNormal = Mathf.Sqrt(-2.0f * Mathf.Log(u1)) * Mathf.Sin(2.0f * Mathf.PI * u2);
+        return mean + stdDev * randStdNormal;
+    }
+
+    public int currentPrice => 
+        priceHistory.Count > 0 ? priceHistory[priceHistory.Count - 1] : Mathf.RoundToInt(basePrice);
 }

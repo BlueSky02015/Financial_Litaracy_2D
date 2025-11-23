@@ -12,14 +12,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272bc6d820cb2314182ef4058bf2f98c, type: 3}
   m_Name: Run
   m_EditorClassIdentifier: 
-  actionName: Run
+  actionName: Excercise
   outcomes:
-  - description: Default outcome.
+  - description: 'You went for a jog around the block. Feel slightly better." '
     rarity: 0
-    HealthChange: 0
+    HealthChange: 1
     hungerChange: 0
-    staminaChange: 0
-    moodChange: 0
+    staminaChange: 10
+    moodChange: 3
     knowledgeChange: 0
     timeCostHours: 1
     moneyChange: 0
+    knowledgeReq: 0
+  - description: 'You had a solid gym session. Muscles feel stronger." '
+    rarity: 1
+    HealthChange: 2
+    hungerChange: 0
+    staminaChange: 17
+    moodChange: 10
+    knowledgeChange: 0
+    timeCostHours: 1
+    moneyChange: 0
+    knowledgeReq: 0
+  - description: '"Perfect form today! You pushed your limits." '
+    rarity: 2
+    HealthChange: 10
+    hungerChange: 0
+    staminaChange: 12
+    moodChange: 15
+    knowledgeChange: 0
+    timeCostHours: 2
+    moneyChange: 0
+    knowledgeReq: 0
+  - description: "\"You exercised too hard. Need rest now.\" \r"
+    rarity: 2
+    HealthChange: -10
+    hungerChange: 0
+    staminaChange: -10
+    moodChange: -10
+    knowledgeChange: 0
+    timeCostHours: 2
+    moneyChange: 0
+    knowledgeReq: 0
+  - description: "\"You broke personal records! Your body feels amazing.\" \r"
+    rarity: 3
+    HealthChange: 0
+    hungerChange: 0
+    staminaChange: 50
+    moodChange: 50
+    knowledgeChange: 0
+    timeCostHours: 1
+    moneyChange: 0
+    knowledgeReq: 0

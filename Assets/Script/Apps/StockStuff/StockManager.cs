@@ -25,7 +25,7 @@ public class StockManager : MonoBehaviour
         foreach (var stock in allStocks)
         {
             if (stock != null)
-                stockMap[stock.stockSymbol] = stock;
+                stockMap[stock.stockName] = stock;
         }
     }
 

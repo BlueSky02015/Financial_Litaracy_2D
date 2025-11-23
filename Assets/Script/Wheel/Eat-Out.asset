@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Eat-Out
   outcomes:
-  - description: You Eat at McMek as usuall
+  - description: You Eat at McMekDonal near your house
     rarity: 0
     HealthChange: 0
-    hungerChange: 25
-    staminaChange: 2
-    moodChange: 3
+    hungerChange: 40
+    staminaChange: 20
+    moodChange: 20
     knowledgeChange: 0
     timeCostHours: 1
     moneyChange: 20
@@ -27,9 +27,9 @@ MonoBehaviour:
   - description: 'You went to your local Chinese Resto '
     rarity: 0
     HealthChange: 3
-    hungerChange: 30
-    staminaChange: 2
-    moodChange: 5
+    hungerChange: 50
+    staminaChange: 20
+    moodChange: 20
     knowledgeChange: 0
     timeCostHours: 2
     moneyChange: 77
@@ -37,8 +37,8 @@ MonoBehaviour:
   - description: You Crave some Pizza and buy a Large one
     rarity: 1
     HealthChange: -2
-    hungerChange: 30
-    staminaChange: 5
+    hungerChange: 50
+    staminaChange: 30
     moodChange: 20
     knowledgeChange: 0
     timeCostHours: 2
@@ -47,8 +47,8 @@ MonoBehaviour:
   - description: 'ALL U CAN EAT BUFFET, BABY '
     rarity: 2
     HealthChange: 10
-    hungerChange: 50
-    staminaChange: 2
+    hungerChange: 100
+    staminaChange: 20
     moodChange: 25
     knowledgeChange: 0
     timeCostHours: 2
@@ -57,9 +57,9 @@ MonoBehaviour:
   - description: You meet an old friend on the way, and he insited to pay for the
       meal
     rarity: 3
-    HealthChange: 0
-    hungerChange: 75
-    staminaChange: 10
+    HealthChange: 10
+    hungerChange: 100
+    staminaChange: 50
     moodChange: 50
     knowledgeChange: 0
     timeCostHours: 3

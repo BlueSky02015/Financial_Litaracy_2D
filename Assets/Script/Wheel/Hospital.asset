@@ -16,42 +16,52 @@ MonoBehaviour:
   outcomes:
   - description: The Doctor only said " Just take care of your Helath better".
     rarity: 0
-    moneyChange: -300
-    hungerChange: -10
+    HealthChange: 10
+    hungerChange: 0
     staminaChange: 0
     moodChange: -10
-    HealthChange: 10
+    knowledgeChange: 0
     timeCostHours: 3
+    moneyChange: -300
+    knowledgeReq: 0
   - description: The Doctor Give your a Better Receipt for you
     rarity: 1
-    moneyChange: -500
-    hungerChange: -10
+    HealthChange: 20
+    hungerChange: 0
     staminaChange: 0
     moodChange: 10
-    HealthChange: 20
+    knowledgeChange: 0
     timeCostHours: 3
+    moneyChange: -500
+    knowledgeReq: 0
   - description: You were Secretly Experiment with a new Drug and Cured
     rarity: 2
-    moneyChange: -1000
+    HealthChange: 25
     hungerChange: 20
     staminaChange: 10
     moodChange: 25
-    HealthChange: 25
+    knowledgeChange: 0
     timeCostHours: 3
+    moneyChange: -1000
+    knowledgeReq: 0
   - description: You were Secretly Experiment with a new Drug and You feel alot of
       PAIN
     rarity: 2
-    moneyChange: -1000
+    HealthChange: -50
     hungerChange: -50
     staminaChange: -50
     moodChange: -50
-    HealthChange: -50
+    knowledgeChange: 0
     timeCostHours: 3
+    moneyChange: -1000
+    knowledgeReq: 0
   - description: A Miracle Doctor has Come to Your Hospital and Fully Cure You
     rarity: 3
-    moneyChange: -5000
-    hungerChange: -10
-    staminaChange: 0
-    moodChange: 50
     HealthChange: 100
+    hungerChange: 20
+    staminaChange: 20
+    moodChange: 50
+    knowledgeChange: 0
     timeCostHours: 3
+    moneyChange: -5000
+    knowledgeReq: 0

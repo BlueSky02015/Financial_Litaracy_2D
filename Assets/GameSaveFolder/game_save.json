@@ -1,13 +1,14 @@
 {
     "stats": {
-        "health": 88.0,
-        "hunger": 44.99449920654297,
-        "stamina": 64.49725341796875,
-        "mood": 72.49725341796875,
+        "health": 0.0,
+        "hunger": 0.0,
+        "stamina": 0.0,
+        "mood": 0.0,
         "money": 1000.0,
-        "knowledge": 65.0
+        "knowledge": 38.0
     },
-    "elapsedTime": 113021.0,
+    "elapsedTime": 512075.90625,
+    "currentDay": 5,
     "stockHoldings": [],
-    "currentTutorialStep": "UseDoor"
+    "completedAppTutorials": []
 }

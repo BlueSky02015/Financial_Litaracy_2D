@@ -64,6 +64,13 @@ public class PlayerStats : MonoBehaviour
 
         float max = configMap[stat].maxValue;
         currentValues[stat] = Mathf.Clamp(currentValues[stat] + delta, 0f, max);
+        // Check for death when health changes
+        if (stat == StatType.Health && currentValues[stat] <= 0f)
+        {
+            OnPlayerDied();
+        }
+
+        OnStatChanged?.Invoke(stat, currentValues[stat], max);
         OnStatChanged?.Invoke(stat, currentValues[stat], max);
     }
 
@@ -85,6 +92,27 @@ public class PlayerStats : MonoBehaviour
             var config = configMap[stat];
             float change = (config.gainPerHour - config.decayPerHour) * hoursPassed;
             ModifyStat(stat, change);
+        }
+    }
+
+    void OnPlayerDied()
+    {
+        Debug.Log("💀 Player died!");
+        DeathManager.Instance?.ShowDeathScreen();
+    }
+
+    public void ResetToDefaults()
+    {
+        // Reset to starting values from config
+        foreach (var config in statConfigs)
+        {
+            currentValues[config.statType] = config.startValue;
+        }
+
+        // Notify UI of changes
+        foreach (var config in statConfigs)
+        {
+            OnStatChanged?.Invoke(config.statType, currentValues[config.statType], config.maxValue);
         }
     }
 }

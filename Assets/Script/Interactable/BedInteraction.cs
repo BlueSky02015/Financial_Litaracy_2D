@@ -29,6 +29,7 @@ public class BedInteraction : MonoBehaviour, IInteractable
         {
             Clock.instance.JumpToMorning();
             GameSaveManager.instance?.SaveGame();
+            TutorialManager.instance?.OnAppClicked("Bed");
         }
     }
 }

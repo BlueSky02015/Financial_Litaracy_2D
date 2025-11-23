@@ -47,6 +47,7 @@ public class DialogManager : MonoBehaviour
         // ✅ No need to check — TutorialManager decides when to call this
         currentDialogue = dialogue;
         isDialogueActive = true;
+        TutorialManager.instance.SetTutorialActive(true);
         animator.SetBool("IsDialog", true);
         lines.Clear();
 
@@ -98,12 +99,8 @@ public class DialogManager : MonoBehaviour
     void EndDialogue()
     {
         isDialogueActive = false;
+        TutorialManager.instance.SetTutorialActive(false);
         animator.SetBool("IsDialog", false);
-
-        if (currentDialogue != null && currentDialogue.isIntroDialogue)
-        {
-            TutorialManager.instance?.AdvanceToChoosePath();
-        }
         
         currentDialogue = null;
     }

@@ -6,12 +6,13 @@ public class SaveData
 {
     public StatSaveData stats = new StatSaveData();
     public float elapsedTime;
+    public int currentDay;
 
     // Portfolio (Stock Holdings)
     public List<StockHoldingSaveData> stockHoldings = new List<StockHoldingSaveData>();
 
     //Tutorial Progress
-    public string currentTutorialStep = "None"; // store as string for safety
+    public List<string> completedAppTutorials = new List<string>();
     
 }
 
@@ -29,7 +30,7 @@ public class StatSaveData
 [System.Serializable]
 public class StockHoldingSaveData
 {
-    public string stockSymbol; 
+    public string stockName; 
     public int sharesOwned;
     public float totalInvested;
 }

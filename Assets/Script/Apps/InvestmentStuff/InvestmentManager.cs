@@ -102,6 +102,12 @@ public class InvestmentManager : MonoBehaviour
             Debug.Log($"Collected weekly rental income: ${totalIncome}");
         }
     }
+    public void ResetHoldings()
+    {
+        investments.Clear();
+        Debug.Log("🏢 Investment holdings reset");
+        OnInvestmentsChanged?.Invoke(); 
+    }
 
     // --- Events ---
     public delegate void InvestmentsChangedHandler();

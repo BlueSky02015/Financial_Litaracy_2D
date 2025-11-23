@@ -1,11 +1,28 @@
-// TutorialManager.cs (mouse-only version)
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager instance;
 
-    public TutorialStep currentStep = TutorialStep.None;
+    [Header("Intro Dialogue")]
+    public DialogueSO introDialogue;
+
+    [System.Serializable]
+    public class AppTutorial
+    {
+        public string appTag;
+        public DialogueSO firstClickDialogue;
+    }
+
+    [Header("App Tutorials")]
+    public List<AppTutorial> appTutorials = new List<AppTutorial>();
+
+    private HashSet<string> completedTutorials = new HashSet<string>();
+    private const string APP_TUTORIALS_KEY = "CompletedTutorials";
+    private bool isTutorialActive = false;
+
 
     void Awake()
     {
@@ -13,7 +30,6 @@ public class TutorialManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            LoadProgress();
         }
         else
         {
@@ -23,98 +39,108 @@ public class TutorialManager : MonoBehaviour
 
     public void StartNewGame()
     {
-        currentStep = TutorialStep.IntroStory;
-        SaveProgress();
-        ShowCurrentStepDialogue();
-    }
-
-    // === CLICK-BASED TRIGGERS ===
-    public void OnLaptopClicked()
-    {
-        if (currentStep == TutorialStep.ChooseInteraction)
+        Debug.Log("🚀 Starting new game tutorial");
+        ResetAppTutorials();
+        if (introDialogue != null && DialogManager.Instance != null)
         {
-            Debug.Log("✅ Advancing to UseLaptop");
-            AdvanceTo(TutorialStep.UseLaptop); // ← This must run
+            DialogManager.Instance.StartDialogue(introDialogue);
+        }
+        else
+        {
+            Debug.Log("No intro dialogue assigned");
         }
     }
 
-    public void OnDoorClicked()
+    public void OnAppClicked(string appTag)
     {
-        if (currentStep == TutorialStep.ChooseInteraction)
+        // Skip if already shown
+        if (completedTutorials.Contains(appTag))
+            return;
+
+        // Find dialogue for this app
+        var tutorial = appTutorials.Find(t => t.appTag == appTag);
+        if (tutorial?.firstClickDialogue != null)
         {
-            AdvanceTo(TutorialStep.UseDoor);
+            DialogManager.Instance.StartDialogue(tutorial.firstClickDialogue);
+            completedTutorials.Add(appTag);
+            SaveTutorialProgress();
         }
     }
 
-    public void OnEmailAppOpened() => CompleteTutorial();
-    public void OnWentOutside() => CompleteTutorial();
-
-    // === CORE ===
-    private void AdvanceTo(TutorialStep step)
+    public bool IsAppTutorialCompleted(string appTag)
     {
-        currentStep = step;
-        SaveProgress();
-        ShowCurrentStepDialogue();
+        return completedTutorials.Contains(appTag);
     }
 
-    private void CompleteTutorial()
+    public void MarkAppTutorialCompleted(string appTag)
     {
-        AdvanceTo(TutorialStep.Completed);
+        completedTutorials.Add(appTag);
+        SaveTutorialProgress();
+        Debug.Log($"✅ Marked app tutorial completed: {appTag}");
     }
 
-    private void ShowCurrentStepDialogue()
+    // --- Save/Load ---
+    void SaveTutorialProgress()
     {
-        DialogueSO dialogue = GetDialogueForStep(currentStep);
-        if (dialogue != null)
-        {
-            DialogManager.Instance.StartDialogue(dialogue);
-        }
-    }
-
-    private DialogueSO GetDialogueForStep(TutorialStep step)
-    {
-        switch (step)
-        {
-            case TutorialStep.IntroStory: return introStoryDialogue;
-            case TutorialStep.ChooseInteraction: return chooseInteractionDialogue;
-            case TutorialStep.UseLaptop: return useLaptopDialogue;
-            case TutorialStep.CheckEmail: return checkEmailDialogue;
-            case TutorialStep.UseDoor: return useDoorDialogue;
-            case TutorialStep.GoOutside: return goOutsideDialogue;
-            default: return null;
-        }
-    }
-    public void AdvanceToChoosePath()
-    {
-        AdvanceTo(TutorialStep.ChooseInteraction);
-    }
-
-    // === SAVE/LOAD ===
-    private const string TUTORIAL_KEY = "TutorialStep";
-
-    private void SaveProgress()
-    {
-        PlayerPrefs.SetInt(TUTORIAL_KEY, (int)currentStep);
+        // Convert to JSON for PlayerPrefs
+        var wrapper = new StringListWrapper(new List<string>(completedTutorials));
+        string json = JsonUtility.ToJson(wrapper);
+        PlayerPrefs.SetString(APP_TUTORIALS_KEY, json);
         PlayerPrefs.Save();
     }
 
-    private void LoadProgress()
+    public void LoadTutorialProgress()
     {
-        if (PlayerPrefs.HasKey(TUTORIAL_KEY))
+        if (PlayerPrefs.HasKey(APP_TUTORIALS_KEY))
         {
-            currentStep = (TutorialStep)PlayerPrefs.GetInt(TUTORIAL_KEY);
+            string json = PlayerPrefs.GetString(APP_TUTORIALS_KEY);
+            var wrapper = JsonUtility.FromJson<StringListWrapper>(json);
+            completedTutorials = new HashSet<string>(wrapper.items);
+            Debug.Log($"✅ Loaded {completedTutorials.Count} completed app tutorials");
+        }
+        else
+        {
+            Debug.Log("No saved tutorial progress found");
         }
     }
 
-    // === PUBLIC API ===
-    public bool IsTutorialActive() =>
-        currentStep != TutorialStep.Completed && currentStep != TutorialStep.None;
+    private void ResetAppTutorials()
+    {
+        completedTutorials.Clear();
+        PlayerPrefs.DeleteKey(APP_TUTORIALS_KEY);
+        Debug.Log("🗑️ Cleared all app tutorial progress");
+    }
 
-    // Assign in Inspector
-    public DialogueSO introStoryDialogue;
-    public DialogueSO chooseInteractionDialogue;
-    public DialogueSO useLaptopDialogue;
-    public DialogueSO checkEmailDialogue;
-    public DialogueSO useDoorDialogue;
-    public DialogueSO goOutsideDialogue;
+    // Helper for JSON serialization
+    [System.Serializable]
+    private class StringListWrapper
+    {
+        public List<string> items;
+        public StringListWrapper(List<string> list) => items = list;
+        public StringListWrapper() => items = new List<string>();
+    }
+
+    // --- MISC METHODS ---
+    public void SetTutorialActive(bool active)
+    {
+        isTutorialActive = active;
+        Debug.Log($"Tutorial active: {active}");
+    }
+
+    public bool IsTutorialActive()
+    {
+        return isTutorialActive;
+    }
+
+    public HashSet<string> GetCompletedTutorials()
+    {
+        return completedTutorials;
+    }
+
+    public void SetCompletedTutorials(HashSet<string> tutorials)
+    {
+        completedTutorials = tutorials ?? new HashSet<string>();
+        Debug.Log($"Loaded {completedTutorials.Count} completed app tutorials");
+    }
+
 }

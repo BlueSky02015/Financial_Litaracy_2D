@@ -17,21 +17,23 @@ MonoBehaviour:
   - description: You Have fun at the Mall
     rarity: 0
     HealthChange: 0
-    hungerChange: 20
-    staminaChange: -10
+    hungerChange: 30
+    staminaChange: 0
     moodChange: 10
     knowledgeChange: 0
     timeCostHours: 5
     moneyChange: -200
+    knowledgeReq: 0
   - description: You finally went to that one place that you want
     rarity: 1
     HealthChange: 0
-    hungerChange: 25
-    staminaChange: -5
-    moodChange: -20
+    hungerChange: 50
+    staminaChange: 0
+    moodChange: 20
     knowledgeChange: 0
     timeCostHours: 5
     moneyChange: -350
+    knowledgeReq: 0
   - description: You went to that one Arcde and won a prize
     rarity: 2
     HealthChange: 0
@@ -41,6 +43,7 @@ MonoBehaviour:
     knowledgeChange: 0
     timeCostHours: 5
     moneyChange: 10000
+    knowledgeReq: 0
   - description: 'You went to that one Arcde and loss '
     rarity: 2
     HealthChange: 0
@@ -50,12 +53,14 @@ MonoBehaviour:
     knowledgeChange: 0
     timeCostHours: 5
     moneyChange: -1000
+    knowledgeReq: 0
   - description: 'You Won the 1Mil Lottery '
     rarity: 3
     HealthChange: 0
-    hungerChange: 20
-    staminaChange: 20
+    hungerChange: 100
+    staminaChange: 100
     moodChange: 100
     knowledgeChange: 0
     timeCostHours: 1
     moneyChange: 1000000
+    knowledgeReq: 0

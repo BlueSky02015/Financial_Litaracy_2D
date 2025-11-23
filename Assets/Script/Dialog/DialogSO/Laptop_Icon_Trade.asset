@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ebe1206062230a4baf6d0cb556be4f0, type: 3}
+  m_Name: Laptop_Icon_Trade
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - character:
+      name: 
+      icon: {fileID: 0}
+    line: Welcome to the stock market! Buy low, sell high, and grow your wealth.
+    autoAdvanceDelay: 0
+  - character:
+      name: 
+      icon: {fileID: 0}
+    line: Prices change every 15 minutes. Watch the graph and time your trades!
+    autoAdvanceDelay: 0
+  - character:
+      name: 
+      icon: {fileID: 0}
+    line: Start small! Buy a few shares and learn the market before going big.
+    autoAdvanceDelay: 0
+  - character:
+      name: 
+      icon: {fileID: 0}
+    line: Green means profit, red means loss. Keep an eye on your portfolio!
+    autoAdvanceDelay: 0
+  - character:
+      name: 
+      icon: {fileID: 0}
+    line: "The market never sleeps \u2014 but you can! Check back after sleeping
+      to see big moves."
+    autoAdvanceDelay: 0
+  targetInteractableTag: 
+  isIntroDialogue: 0
+  showOnlyOnce: 1
