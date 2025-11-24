@@ -63,6 +63,12 @@ public class DebtSystem : MonoBehaviour
             }
         }
     }
+    public void SetCurrentDebt(float debt)
+    {
+        currentDebt = debt;
+        // Update lastInterestTime if needed
+        lastInterestTime = Clock.instance?.elapsedTime ?? 0f;
+    }
 
     // --- Public API ---
     public bool PayDebt(float amount)

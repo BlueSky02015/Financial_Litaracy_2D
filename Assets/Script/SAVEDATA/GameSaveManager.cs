@@ -55,6 +55,27 @@ public class GameSaveManager : MonoBehaviour
             }
         }
 
+        // SAVE INVESTMENTS
+        if (InvestmentManager.instance != null)
+        {
+            foreach (var investment in InvestmentManager.instance.Investments)
+            {
+                saveData.investments.Add(new InvestmentSaveData
+                {
+                    assetName = investment.asset.assetName,
+                    ownedCount = investment.ownedCount,
+                    isRented = investment.isRented
+                });
+            }
+        }
+
+        // SAVE DEBT
+        if (DebtSystem.instance != null)
+        {
+            saveData.currentDebt = DebtSystem.instance.GetCurrentDebt();
+            // You'll need to add GetCurrentDebt() method to DebtSystem
+        }
+
         // Save tutorial
         if (TutorialManager.instance != null)
         {
@@ -101,6 +122,10 @@ public class GameSaveManager : MonoBehaviour
         Clock.instance.SetElapsedTime(saveData.elapsedTime);
         Clock.instance.SetCurrentDay(saveData.currentDay);
 
+        if (StatTimeUpdater.instance != null)
+        {
+            StatTimeUpdater.instance.OnGameLoaded();
+        }
 
         // Load portfolio
         if (PortfolioManager.instance != null)
@@ -108,7 +133,7 @@ public class GameSaveManager : MonoBehaviour
             PortfolioManager.instance.ClearHoldings();
             foreach (var holdingData in saveData.stockHoldings)
             {
-                StockData stock = FindStockBySymbol(holdingData.stockName);
+                StockData stock = FindStockByName(holdingData.stockName);
                 if (stock != null)
                 {
                     PortfolioManager.instance.AddHolding(
@@ -119,6 +144,31 @@ public class GameSaveManager : MonoBehaviour
                 }
             }
             PortfolioManager.NotifyPortfolioUpdated();
+        }
+
+        // LOAD INVESTMENTS
+        if (InvestmentManager.instance != null)
+        {
+            InvestmentManager.instance.ClearAllHoldings();
+            foreach (var invData in saveData.investments)
+            {
+                InvestmentAsset asset = InvestmentManager.instance?.FindAssetByName(invData.assetName);
+                if (asset != null)
+                {
+                    InvestmentManager.instance.AddInvestment(
+                        asset,
+                        invData.ownedCount,
+                        invData.isRented
+                    );
+                }
+            }
+            InvestmentManager.NotifyInvestmentsChanged();
+        }
+
+        // LOAD DEBT
+        if (DebtSystem.instance != null)
+        {
+            DebtSystem.instance.SetCurrentDebt(saveData.currentDebt);
         }
 
         // Load tutorial progress
@@ -133,18 +183,12 @@ public class GameSaveManager : MonoBehaviour
         return true;
     }
 
-    private StockData FindStockBySymbol(string symbol)
+    private StockData FindStockByName(string name)
     {
-        // Option 1: Keep a reference to all stocks in a manager
-        // Option 2: Search in Resources (if you store stocks in Resources folder)
-
-        // For now, assume you have a StockManager
         if (StockManager.instance != null)
         {
-            return StockManager.instance.GetStockBySymbol(symbol);
+            return StockManager.instance.GetStockByName(name);
         }
-
-        Debug.LogWarning($"Stock '{symbol}' not found during load!");
         return null;
     }
 }

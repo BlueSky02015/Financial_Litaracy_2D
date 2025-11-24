@@ -5,7 +5,7 @@ public class StockManager : MonoBehaviour
 {
     public static StockManager instance;
 
-    [SerializeField] private StockData[] allStocks; // assign in inspector
+    [SerializeField] private StockData[] allStocks;
 
     private Dictionary<string, StockData> stockMap = new Dictionary<string, StockData>();
 
@@ -29,8 +29,8 @@ public class StockManager : MonoBehaviour
         }
     }
 
-    public StockData GetStockBySymbol(string symbol)
+    public StockData GetStockByName(string Name)
     {
-        return stockMap.ContainsKey(symbol) ? stockMap[symbol] : null;
+        return stockMap.ContainsKey(Name) ? stockMap[Name] : null;
     }
 }

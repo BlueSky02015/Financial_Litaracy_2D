@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2082b2537b47d24ab9a2077c763eab5, type: 3}
-  m_Name: Stock 1
+  m_Name: Game
   m_EditorClassIdentifier: 
-  stockSymbol: Game
-  stockName: Stock Company
+  stockName: Game
+  priceHistory: 010000000200000001000000010000000100000001000000010000000100000002000000010000000100000002000000010000000100000001000000
+  currentPrice: 1000
   basePrice: 250
-  volatility: 1
-  trend: 3
-  priceHistory: 
+  volatility: 0.02
+  jumpProbability: 0.05
+  minJumpSize: 0.1
+  maxJumpSize: 0.4

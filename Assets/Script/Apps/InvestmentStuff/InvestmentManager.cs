@@ -13,6 +13,7 @@ public class InvestmentManager : MonoBehaviour
 {
     public static InvestmentManager instance;
 
+    public List<InvestmentAsset> allAssets = new List<InvestmentAsset>();
     [SerializeField] private List<PlayerInvestment> investments = new List<PlayerInvestment>();
     public List<PlayerInvestment> Investments => investments;
 
@@ -106,10 +107,44 @@ public class InvestmentManager : MonoBehaviour
     {
         investments.Clear();
         Debug.Log("🏢 Investment holdings reset");
-        OnInvestmentsChanged?.Invoke(); 
+        OnInvestmentsChanged?.Invoke();
     }
+
+    public void AddInvestment(InvestmentAsset asset, int count, bool isRented)
+    {
+        var existing = investments.Find(i => i.asset == asset);
+        if (existing != null)
+        {
+            existing.ownedCount = count;
+            existing.isRented = isRented;
+        }
+        else
+        {
+            investments.Add(new PlayerInvestment
+            {
+                asset = asset,
+                ownedCount = count,
+                isRented = isRented
+            });
+        }
+    }
+
+    public void ClearAllHoldings()
+    {
+        investments.Clear();
+        OnInvestmentsChanged?.Invoke();
+    }
+
 
     // --- Events ---
     public delegate void InvestmentsChangedHandler();
     public static event InvestmentsChangedHandler OnInvestmentsChanged;
+    public static void NotifyInvestmentsChanged()
+    {
+        OnInvestmentsChanged?.Invoke();
+    }
+    public InvestmentAsset FindAssetByName(string assetName)
+    {
+        return allAssets.Find(asset => asset.assetName == assetName);
+    }
 }

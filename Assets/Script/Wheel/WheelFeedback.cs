@@ -14,9 +14,7 @@ public class WheelFeedback : MonoBehaviour
     [SerializeField] private TMP_Text descriptionText;
     [SerializeField] private TMP_Text statsText;
     [SerializeField] private float displayDuration = 3f;
-
-    [Header("Audio")]
-    [SerializeField] private AudioManager audioManager;
+    [SerializeField] private StatTimeUpdater statTimeUpdater;
 
     public void ShowFeedback(string description, int health, int hunger, int stamina, int mood, int knowledge, int money,  Color textColor)
     {
@@ -26,9 +24,10 @@ public class WheelFeedback : MonoBehaviour
             return;
         }
 
-        // Play SFX
-        if (audioManager != null)
-            audioManager.playSFX(audioManager.Click_SFX, 1.5f);
+        if (statTimeUpdater != null)
+        {
+            statTimeUpdater.PauseStatDecay();
+        }
 
         // Set text
         descriptionText.color = textColor;
@@ -63,6 +62,11 @@ public class WheelFeedback : MonoBehaviour
         // Fade back in
         yield return StartCoroutine(fadeTrigger.WaitForFadeOut());
         Debug.Log(">>> WheelFeedback: Fade back in complete.");
+
+        if (statTimeUpdater != null)
+        {
+            statTimeUpdater.ResumeStatDecay();
+        }
 
         if (wheelSelection != null)
             wheelSelection.SetInteractable(true);

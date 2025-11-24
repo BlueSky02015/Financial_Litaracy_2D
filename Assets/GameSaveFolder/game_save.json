@@ -1,14 +1,35 @@
 {
     "stats": {
-        "health": 0.0,
-        "hunger": 0.0,
-        "stamina": 0.0,
-        "mood": 0.0,
-        "money": 1000.0,
-        "knowledge": 38.0
+        "health": 88.0,
+        "hunger": 72.27413940429688,
+        "stamina": 79.27413940429688,
+        "mood": 72.27413940429688,
+        "money": 741478.0,
+        "knowledge": 65.0
     },
-    "elapsedTime": 512075.90625,
-    "currentDay": 5,
-    "stockHoldings": [],
-    "completedAppTutorials": []
+    "elapsedTime": 629165.0,
+    "currentDay": 7,
+    "stockHoldings": [
+        {
+            "stockName": "Game",
+            "sharesOwned": 1,
+            "totalInvested": 2.0
+        }
+    ],
+    "investments": [
+        {
+            "assetName": "Apartment",
+            "ownedCount": 5,
+            "isRented": true
+        }
+    ],
+    "currentDebt": 50000.0,
+    "lastInterestTime": 0.0,
+    "completedAppTutorials": [
+        "Bed",
+        "Laptop",
+        "Stock",
+        "Investment",
+        "Door"
+    ]
 }

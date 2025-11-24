@@ -46,6 +46,7 @@ public class GameFlowManager : MonoBehaviour
         Clock.instance?.MorningTime();
         InvestmentManager.instance?.ResetHoldings(); 
         DebtSystem.instance?.ResetDebt();
+        StatTimeUpdater.instance?.OnNewGameStarted();
         
         ShowDisclaimerThenStart();
         TutorialManager.instance.StartNewGame();

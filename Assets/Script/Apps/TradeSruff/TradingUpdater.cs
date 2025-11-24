@@ -12,7 +12,7 @@ public class TradingUpdater : MonoBehaviour
 
     private float lastUpdateTime = -1f;
     private float IntervalSeconds => updateIntervalMinutes * 60f;
-    [SerializeField] private StockData[] allStocks;
+
 
 
     void Start()
@@ -45,6 +45,13 @@ public class TradingUpdater : MonoBehaviour
         // Cap updates to avoid performance spikes
         updatesNeeded = Mathf.Min(updatesNeeded, maxUpdatesPerFrame);
 
+
+        tradingManager.UpdatePrice();
+        tradingManager.UpdateCurrentStockPrice();
+
+        RefreshAllPredictionUIs();
+
+
         // Perform each update
         for (int i = 0; i < updatesNeeded; i++)
         {
@@ -52,15 +59,16 @@ public class TradingUpdater : MonoBehaviour
             lastUpdateTime += IntervalSeconds;
         }
 
-        for (int i = 0; i < updatesNeeded; i++)
-        {
-            foreach (var stock in allStocks)
-            {
-                stock.AddNewPrice();
-            }
-            lastUpdateTime += IntervalSeconds;
-        }
+        PortfolioManager.NotifyPortfolioUpdated();
+    }
 
-       PortfolioManager.NotifyPortfolioUpdated();
+    void RefreshAllPredictionUIs()
+    {
+        // Find all PredictionTradingUI components and refresh them
+        PredictionTradingUI[] allUIs = FindObjectsOfType<PredictionTradingUI>();
+        foreach (var ui in allUIs)
+        {
+            ui.RefreshUI();
+        }
     }
 }

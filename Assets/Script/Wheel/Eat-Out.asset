@@ -22,7 +22,7 @@ MonoBehaviour:
     moodChange: 20
     knowledgeChange: 0
     timeCostHours: 1
-    moneyChange: 20
+    moneyChange: -20
     knowledgeReq: 0
   - description: 'You went to your local Chinese Resto '
     rarity: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
     moodChange: 20
     knowledgeChange: 0
     timeCostHours: 2
-    moneyChange: 77
+    moneyChange: -77
     knowledgeReq: 0
   - description: You Crave some Pizza and buy a Large one
     rarity: 1
@@ -42,7 +42,7 @@ MonoBehaviour:
     moodChange: 20
     knowledgeChange: 0
     timeCostHours: 2
-    moneyChange: 120
+    moneyChange: -120
     knowledgeReq: 0
   - description: 'ALL U CAN EAT BUFFET, BABY '
     rarity: 2
@@ -52,7 +52,7 @@ MonoBehaviour:
     moodChange: 25
     knowledgeChange: 0
     timeCostHours: 2
-    moneyChange: 150
+    moneyChange: -150
     knowledgeReq: 0
   - description: You meet an old friend on the way, and he insited to pay for the
       meal

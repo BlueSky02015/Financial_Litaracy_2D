@@ -1,18 +1,32 @@
-// StatTimeUpdater.cs (fixed version)
 using UnityEngine;
 
 public class StatTimeUpdater : MonoBehaviour
 {
+    public static StatTimeUpdater instance;
     [Header("References")]
     [SerializeField] private Clock clock;
     [SerializeField] private PlayerStats playerStats;
 
     [Header("Settings")]
-    [Tooltip("How often to update stats (in in-game hours)")]
     [SerializeField] private float updateIntervalHours = 1f;
-
     private float lastUpdateTime = -1f;
+    private float lastProcessedTime = -1f;
     private float IntervalSeconds => updateIntervalHours * 3600f;
+    private bool isStatDecayPaused = false;
+    private float timeWhenPaused = 0f;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -24,6 +38,7 @@ public class StatTimeUpdater : MonoBehaviour
         }
 
         lastUpdateTime = clock.elapsedTime;
+        lastProcessedTime = clock.elapsedTime;
     }
 
     void Update()
@@ -33,18 +48,25 @@ public class StatTimeUpdater : MonoBehaviour
         float currentTime = clock.elapsedTime;
         if (currentTime <= lastUpdateTime) return;
 
-        float timePassed = currentTime - lastUpdateTime;
-        if (timePassed < IntervalSeconds) return;
+        if (isStatDecayPaused)
+        {
+            lastUpdateTime = currentTime;
+            return;
+        }
 
-        float hoursPassed = timePassed / 3600f;
+        float timeSinceLastProcessed = currentTime - lastProcessedTime;
+        if (timeSinceLastProcessed < IntervalSeconds) return;
 
-        // Update regular stats (hunger, stamina, mood)
-        playerStats.UpdateStatsPerHour(hoursPassed);
+        float hoursSinceLastProcessed = timeSinceLastProcessed / 3600f;
 
-        // Update special conditions (health decay, etc.)
-        UpdateSpecialConditions(hoursPassed);
+        // Update regular stats
+        playerStats.UpdateStatsPerHour(hoursSinceLastProcessed);
 
-        lastUpdateTime = currentTime - (timePassed % IntervalSeconds);
+        // Update special conditions
+        UpdateSpecialConditions(hoursSinceLastProcessed);
+
+        lastUpdateTime = currentTime;
+        lastProcessedTime = currentTime;
     }
 
     void UpdateSpecialConditions(float hoursPassed)
@@ -126,5 +148,30 @@ public class StatTimeUpdater : MonoBehaviour
                 Debug.Log($"🍔 Extra hunger drain: -{extraDecay} (health low: {health:F0})");
             }
         }
+    }
+
+    public void PauseStatDecay()
+    {
+        isStatDecayPaused = true;
+        timeWhenPaused = clock.elapsedTime;
+    }
+
+    public void ResumeStatDecay()
+    {
+        isStatDecayPaused = false;
+        lastUpdateTime = clock.elapsedTime;
+    }
+    public bool IsStatDecayPaused() => isStatDecayPaused;
+
+    public void OnNewGameStarted()
+    {
+        lastProcessedTime = clock.elapsedTime;
+        lastUpdateTime = clock.elapsedTime;
+    }
+
+    public void OnGameLoaded()
+    {
+        lastProcessedTime = clock.elapsedTime;
+        lastUpdateTime = clock.elapsedTime;
     }
 }

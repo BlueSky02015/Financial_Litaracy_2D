@@ -67,7 +67,7 @@ public class UIManager : MonoBehaviour
                 return;
             }
         }
-        
+
         // Set this as the instance
         instance = this;
         DontDestroyOnLoad(gameObject);
@@ -203,9 +203,27 @@ public class UIManager : MonoBehaviour
         Debug.Log("✅ Tutorial progress reset!");
     }
 
-    
+
     public static void NotifyGameReady()
     {
         OnGameReady?.Invoke();
+    }
+
+    public void ReturnToTitle()
+    {
+        // Save game before returning to title
+        if (GameSaveManager.instance != null)
+        {
+            GameSaveManager.instance.SaveGame();
+        }
+
+        // Reset all systems
+        if (TutorialManager.instance != null)
+        {
+            TutorialManager.instance.SetCompletedTutorials(new System.Collections.Generic.HashSet<string>());
+        }
+
+        // Load title scene
+        GameFlowManager.instance.EnterTitleScreen();
     }
 }

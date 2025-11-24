@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2082b2537b47d24ab9a2077c763eab5, type: 3}
-  m_Name: Stock 2
+  m_Name: Lumba
   m_EditorClassIdentifier: 
-  stockSymbol: UBM
-  stockName: Stock Company 2
+  stockName: Lumba
+  priceHistory: 010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  currentPrice: 208
   basePrice: 500
-  volatility: 0.1
-  trend: 0
-  priceHistory: 
+  volatility: 0.01
+  jumpProbability: 0.05
+  minJumpSize: 0.1
+  maxJumpSize: 0.4

@@ -46,7 +46,7 @@ public class DeathManager : MonoBehaviour
     {
         // Play fade in
         deathAnimator.PlayDeath();
-        yield return new WaitForSeconds(fadeDuration * 0.5f); // wait for fade to black
+        yield return new WaitForSeconds(fadeDuration * 0.5f); 
 
         // Show death screen
         deathScreen.SetActive(true);

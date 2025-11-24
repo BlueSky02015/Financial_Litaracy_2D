@@ -1,4 +1,3 @@
-// PortfolioManager.cs
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +27,8 @@ public class PortfolioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+
 
     // --- Public API ---
     public bool BuyStock(StockData stock, int shares, int pricePerShare)
@@ -85,6 +86,20 @@ public class PortfolioManager : MonoBehaviour
     {
         return holdings.Find(h => h.stock == stock);
     }
+    public int GetHoldingCount()
+    {
+        return holdings.Count;
+    }
+
+    public int GetTotalShares()
+    {
+        int total = 0;
+        foreach (var holding in holdings)
+        {
+            total += holding.sharesOwned;
+        }
+        return total;
+    }
 
     public float GetProfitPercentage(StockData stock)
     {
@@ -105,14 +120,6 @@ public class PortfolioManager : MonoBehaviour
             total += holding.sharesOwned * holding.stock.currentPrice;
         }
         return total;
-    }
-
-    // --- Events ---
-    public delegate void PortfolioUpdatedHandler();
-    public static event PortfolioUpdatedHandler OnPortfolioUpdated;
-    public static void NotifyPortfolioUpdated()
-    {
-        OnPortfolioUpdated?.Invoke();
     }
 
     // Clear all holdings
@@ -136,4 +143,14 @@ public class PortfolioManager : MonoBehaviour
     {
         return holdings;
     }
+
+    // --- Events ---
+    public delegate void PortfolioUpdatedHandler();
+    public static event PortfolioUpdatedHandler OnPortfolioUpdated;
+    public static void NotifyPortfolioUpdated()
+    {
+        OnPortfolioUpdated?.Invoke();
+    }
+
+
 }
