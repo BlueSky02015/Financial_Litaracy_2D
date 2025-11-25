@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ebe1206062230a4baf6d0cb556be4f0, type: 3}
+  m_Name: Laptop_Icon_Stock
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - character:
+      name: You
+      icon: {fileID: 21300000, guid: f6ee57f710a9a5c45aeb00f2a52d954a, type: 3}
+    line: "This is GAME Corp \u2014 a stable tech stock. Great for beginners!"
+    autoAdvanceDelay: 0
+  - character:
+      name: You
+      icon: {fileID: 21300000, guid: f6ee57f710a9a5c45aeb00f2a52d954a, type: 3}
+    line: "\"Its price swings 1\u20133% daily. Perfect for learning trading!\"\r\n"
+    autoAdvanceDelay: 0
+  - character:
+      name: You
+      icon: {fileID: 21300000, guid: f6ee57f710a9a5c45aeb00f2a52d954a, type: 3}
+    line: Hold long-term for steady growth, or trade short-term for quick cash.
+    autoAdvanceDelay: 0
+  - character:
+      name: You
+      icon: {fileID: 21300000, guid: f6ee57f710a9a5c45aeb00f2a52d954a, type: 3}
+    line: News events can cause big jumps! Stay alert.
+    autoAdvanceDelay: 0
+  - character:
+      name: You
+      icon: {fileID: 21300000, guid: f6ee57f710a9a5c45aeb00f2a52d954a, type: 3}
+    line: "Diversify later \u2014 for now, master one stock at a time."
+    autoAdvanceDelay: 0
+  targetInteractableTag: 
+  isIntroDialogue: 0
+  showOnlyOnce: 1

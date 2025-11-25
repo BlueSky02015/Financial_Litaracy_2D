@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Assets/Sprites/APP/home-icon-house-sticker-pixel-260nw-2188500323.png.meta
 guid: 4aa2d529d414b3448981e8829f14fa4e
+=======
+guid: c4ed2ff85838e654798382abeeaa288d
+>>>>>>> 5375be63a2d5cb780c67b09d580f01fdf6c20ca2:Assets/Sprites/APP/home-icon-house-sticker-pixel-260nw-2188500323.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
