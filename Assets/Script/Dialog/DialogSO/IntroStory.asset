@@ -14,28 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueLines:
   - character:
-      name: 
-      icon: {fileID: 0}
+      name: You
+      icon: {fileID: 21300000, guid: 3ec2897d0973ccb44a1c3d8ab81488f6, type: 3}
     line: ............................................................................................................
     autoAdvanceDelay: 0
   - character:
-      name: 
-      icon: {fileID: 0}
+      name: You
+      icon: {fileID: 21300000, guid: 3ec2897d0973ccb44a1c3d8ab81488f6, type: 3}
     line: Now im all alone...
     autoAdvanceDelay: 0
   - character:
-      name: 
-      icon: {fileID: 0}
+      name: You
+      icon: {fileID: 21300000, guid: 3ec2897d0973ccb44a1c3d8ab81488f6, type: 3}
     line: I need to take care of myself
     autoAdvanceDelay: 0
   - character:
-      name: 
-      icon: {fileID: 0}
+      name: You
+      icon: {fileID: 21300000, guid: 3ec2897d0973ccb44a1c3d8ab81488f6, type: 3}
     line: Well for starter i need to choose a path for my seld
     autoAdvanceDelay: 0
   - character:
-      name: 
-      icon: {fileID: 0}
+      name: You
+      icon: {fileID: 21300000, guid: 3ec2897d0973ccb44a1c3d8ab81488f6, type: 3}
     line: Should i choose to go outside or stay inside
     autoAdvanceDelay: 0
   targetInteractableTag: 

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ebe1206062230a4baf6d0cb556be4f0, type: 3}
+  m_Name: So you pick the door
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - character:
+      name: You
+      icon: {fileID: 21300000, guid: 3ec2897d0973ccb44a1c3d8ab81488f6, type: 3}
+    line: This door leads outside! Explore the neighborhood, find new interactables,
+      or just get fresh air.
+    autoAdvanceDelay: 0
+  - character:
+      name: You
+      icon: {fileID: 21300000, guid: 3ec2897d0973ccb44a1c3d8ab81488f6, type: 3}
+    line: The world is bigger than your apartment. Go outside to discover more!
+    autoAdvanceDelay: 0
+  - character:
+      name: You
+      icon: {fileID: 21300000, guid: 3ec2897d0973ccb44a1c3d8ab81488f6, type: 3}
+    line: Just click to step out. Watch your stamina though
+    autoAdvanceDelay: 0
+  targetInteractableTag: Door
+  isIntroDialogue: 0
+  showOnlyOnce: 1

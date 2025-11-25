@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7927f6790cefa42bfbd79bda2edbb1, type: 3}
   m_Name: New Investment 1
   m_EditorClassIdentifier: 
-  assetName: Apartment
-  icon: {fileID: 21300000, guid: d4286c01b5286604f99f869d40ad92eb, type: 3}
-  description: A place to live or rent out.
+  assetName: House
+  icon: {fileID: 21300000, guid: 4aa2d529d414b3448981e8829f14fa4e, type: 3}
+  description: This little house brings alot moeney per week in rent! It's a solid
+    long-term investment for steady income."
   purchasePrice: 1000000
   sellPrice: 800000
-  weeklyRentalIncome: 5000
+  weeklyRentalIncome: 25000
   rentedColor: {r: 0.2, g: 0.8, b: 0.4, a: 1}

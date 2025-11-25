@@ -44,12 +44,13 @@ public class GameFlowManager : MonoBehaviour
         // ✅ RESET ALL SYSTEMS TO DEFAULTS
         PlayerStats.instance?.ResetToDefaults();
         Clock.instance?.MorningTime();
-        InvestmentManager.instance?.ResetHoldings(); 
+        InvestmentManager.instance?.ResetHoldings();
         DebtSystem.instance?.ResetDebt();
         StatTimeUpdater.instance?.OnNewGameStarted();
-        
+        StatWarningManager.instance?.ResetAllWarnings();
+
         ShowDisclaimerThenStart();
-        TutorialManager.instance.StartNewGame();
+        Invoke(nameof(StartTutorial), 7f);
 
     }
 
@@ -89,8 +90,7 @@ public class GameFlowManager : MonoBehaviour
         }
         else
         {
-            // Fallback: start gameplay after 3 seconds without manager
-            Invoke(nameof(StartGameplay), 3f);
+            Invoke(nameof(StartGameplay), 7f);
         }
     }
 
@@ -123,6 +123,10 @@ public class GameFlowManager : MonoBehaviour
         titleScreen.SetActive(true);
 
         Debug.Log("🏠 Returned to title");
+    }
+    void StartTutorial()
+    {
+        TutorialManager.instance?.StartNewGame();
     }
 
 }

@@ -62,15 +62,22 @@ public class PlayerStats : MonoBehaviour
     {
         if (!currentValues.ContainsKey(stat)) return;
 
+        float oldValue = currentValues[stat];
         float max = configMap[stat].maxValue;
         currentValues[stat] = Mathf.Clamp(currentValues[stat] + delta, 0f, max);
+
+        // Check if stat improved (went up)
+        if (delta > 0 && currentValues[stat] > oldValue)
+        {
+            OnStatImproved(stat);
+        }
+
         // Check for death when health changes
         if (stat == StatType.Health && currentValues[stat] <= 0f)
         {
             OnPlayerDied();
         }
 
-        OnStatChanged?.Invoke(stat, currentValues[stat], max);
         OnStatChanged?.Invoke(stat, currentValues[stat], max);
     }
 
@@ -114,5 +121,9 @@ public class PlayerStats : MonoBehaviour
         {
             OnStatChanged?.Invoke(config.statType, currentValues[config.statType], config.maxValue);
         }
+    }
+    public void OnStatImproved(StatType stat)
+    {
+        StatWarningManager.instance?.ResetWarning(stat);
     }
 }

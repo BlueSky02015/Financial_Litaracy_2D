@@ -4,7 +4,7 @@ using UnityEngine;
 public class DisclaimerManager : MonoBehaviour
 {
     [Header("Settings")]
-    public float displayTime = 3f;
+    public float displayTime = 7f;
 
     private System.Action onContinueCallback;
     private bool disclaimerActive = false;

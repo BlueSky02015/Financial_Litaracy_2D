@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7927f6790cefa42bfbd79bda2edbb1, type: 3}
   m_Name: New Investment
   m_EditorClassIdentifier: 
-  assetName: Apartment
-  icon: {fileID: 21300000, guid: 395c673ca3d72e9489102512c67cc58e, type: 3}
-  description: A place to live or rent out.
+  assetName: Vending Machine
+  icon: {fileID: 21300000, guid: bd004cd06f7cf164f88de6bf4ed2993a, type: 3}
+  description: This vending machine generates 250 per week automatically! Place it
+    in high-traffic areas for maximum profit."
   purchasePrice: 1000
   sellPrice: 800
-  weeklyRentalIncome: 50
+  weeklyRentalIncome: 250
   rentedColor: {r: 0.2, g: 0.8, b: 0.4, a: 1}
