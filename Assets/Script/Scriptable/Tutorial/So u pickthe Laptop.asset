@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ebe1206062230a4baf6d0cb556be4f0, type: 3}
+  m_Name: So u pickthe Laptop
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - character:
+      name: You
+      icon: {fileID: 21300000, guid: f6ee57f710a9a5c45aeb00f2a52d954a, type: 3}
+    line: "This is your laptop \u2014 your command center for indoor life! Use it
+      to check trade stocks, manage money, and more."
+    autoAdvanceDelay: 0
+  - character:
+      name: You
+      icon: {fileID: 21300000, guid: f6ee57f710a9a5c45aeb00f2a52d954a, type: 3}
+    line: Double-click the icons to open apps. Your digital life starts here!
+    autoAdvanceDelay: 0
+  - character:
+      name: You
+      icon: {fileID: 21300000, guid: f6ee57f710a9a5c45aeb00f2a52d954a, type: 3}
+    line: "Don\u2019t forget to save your work! (Just kidding \u2014 this is a game,
+      but good habit!)"
+    autoAdvanceDelay: 0
+  - character:
+      name: You
+      icon: {fileID: 21300000, guid: f6ee57f710a9a5c45aeb00f2a52d954a, type: 3}
+    line: Feeling overwhelmed? Start with the Bank app to check your finances
+    autoAdvanceDelay: 0
+  - character:
+      name: You
+      icon: {fileID: 21300000, guid: f6ee57f710a9a5c45aeb00f2a52d954a, type: 3}
+    line: "Your laptop never sleeps\u2026 but you should! (Check the bed when tired.)"
+    autoAdvanceDelay: 0
+  targetInteractableTag: Laptop
+  isIntroDialogue: 0
+  showOnlyOnce: 1

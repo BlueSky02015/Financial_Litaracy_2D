@@ -1,0 +1,17 @@
+{
+    "stats": {
+        "health": 87.0,
+        "hunger": 63.06444549560547,
+        "stamina": 70.06444549560547,
+        "mood": 78.06444549560547,
+        "money": 1000.0,
+        "knowledge": 65.0
+    },
+    "elapsedTime": 29133.623046875,
+    "currentDay": 0,
+    "stockHoldings": [],
+    "investments": [],
+    "currentDebt": 50000.0,
+    "lastInterestTime": 0.0,
+    "completedAppTutorials": []
+}
