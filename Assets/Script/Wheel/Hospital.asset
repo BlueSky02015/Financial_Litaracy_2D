@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272bc6d820cb2314182ef4058bf2f98c, type: 3}
+  m_Name: Hospital
+  m_EditorClassIdentifier: 
+  actionName: Hospital
+  outcomes:
+  - description: The Doctor only said " Just take care of your Helath better".
+    rarity: 0
+    HealthChange: 10
+    hungerChange: 0
+    staminaChange: 0
+    moodChange: -10
+    knowledgeChange: 0
+    timeCostHours: 3
+    moneyChange: -300
+    knowledgeReq: 0
+  - description: The Doctor Give your a Better Receipt for you
+    rarity: 1
+    HealthChange: 20
+    hungerChange: 0
+    staminaChange: 0
+    moodChange: 10
+    knowledgeChange: 0
+    timeCostHours: 3
+    moneyChange: -500
+    knowledgeReq: 0
+  - description: You were Secretly Experiment with a new Drug and Cured
+    rarity: 2
+    HealthChange: 25
+    hungerChange: 20
+    staminaChange: 10
+    moodChange: 25
+    knowledgeChange: 0
+    timeCostHours: 3
+    moneyChange: -1000
+    knowledgeReq: 0
+  - description: You were Secretly Experiment with a new Drug and You feel alot of
+      PAIN
+    rarity: 2
+    HealthChange: -50
+    hungerChange: -50
+    staminaChange: -50
+    moodChange: -50
+    knowledgeChange: 0
+    timeCostHours: 3
+    moneyChange: -1000
+    knowledgeReq: 0
+  - description: A Miracle Doctor has Come to Your Hospital and Fully Cure You
+    rarity: 3
+    HealthChange: 100
+    hungerChange: 20
+    staminaChange: 20
+    moodChange: 50
+    knowledgeChange: 0
+    timeCostHours: 3
+    moneyChange: -5000
+    knowledgeReq: 0
